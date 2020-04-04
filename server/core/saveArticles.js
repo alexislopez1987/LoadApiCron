@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Article = require('../api/models/Article');
 
-
 const saveArticles = async (articles) => {
+    console.log("running saveArticles");
     try {
         if (articles.length > 0) {
 
             for (const article of articles) {
                 if ((article.story_title || article.title) && article.story_id) {
-                    
+
                     const newArticle = new Article({
                         title: article.story_title || article.title,
                         created: article.created_at,
