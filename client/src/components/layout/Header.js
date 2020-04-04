@@ -4,7 +4,8 @@ import Grid from "@material-ui/core/Grid";
 const classes = {
     container: {
       background: "#000",
-      color: 'white'
+      color: 'white',
+      marginBottom: '12px'
     },
     tile:{
         fontSize: 50

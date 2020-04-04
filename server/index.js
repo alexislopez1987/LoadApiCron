@@ -11,6 +11,12 @@ const mgrArticles = require('./core/mgrArticles');
 
 const app = express();
 
+const corsOptions = {
+    exposedHeaders:  ['auth-token']
+};
+  
+app.use(cors(corsOptions));
+
 require('./api/models/Article');
 
 const routes = require('./api/routes/routes');
