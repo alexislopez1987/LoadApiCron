@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const cronJobGetArticles = require('./core/cronJobGetArticles');
-const getArticles = require('./core/getArticles');
+const mgrArticles = require('./core/mgrArticles');
 
 const app = express();
 
@@ -53,8 +53,7 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 (async () => {
-    const articles = await getArticles(process.env.ARTICLES_URL);
-    //console.log(articles);
+    await mgrArticles();
 })();
 
 cronJobGetArticles;

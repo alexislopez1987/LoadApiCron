@@ -7,7 +7,23 @@ let ArticleSchema = new Schema({
         required: 'article title is required'
     },
     created: {
-        type: Date
+        type: Date,
+        required: 'article created at is required'
+    },
+    status: {
+        type: Boolean,
+        default: true
+    },
+    url: {
+        type: String
+    },
+    author:{
+        type: String,
+        required: 'article author is required'
+    }, 
+    articleId: {
+        type: Number,
+        required: 'article id is required'
     }
 }, {
     toJSON: {
@@ -16,6 +32,10 @@ let ArticleSchema = new Schema({
     toObject: {
         virtuals: true
     }
+});
+
+ArticleSchema.index({
+    articleId: 1
 });
 
 module.exports = mongoose.model('Article', ArticleSchema);
