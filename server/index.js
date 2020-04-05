@@ -63,3 +63,5 @@ console.log(`Running on http://${HOST}:${PORT}`);
 })();
 
 cronJobGetArticles;
+
+module.exports = app;

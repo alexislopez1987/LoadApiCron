@@ -15,8 +15,8 @@ exports.delete = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const query = await article.findByIdAndUpdate({ _id: id }, { status: 0 });
-        res.json({msg: `article ${id} deleted`});
+        const deletedArticle = await article.findByIdAndUpdate({ _id: id }, { status: 0 }, {new: true});
+        res.json(deletedArticle);
     } catch (error) {
         if (error.kind == 'ObjectId') {
             res.status(500).json({'error': `invalid id ${id}`});
