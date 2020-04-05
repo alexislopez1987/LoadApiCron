@@ -33,11 +33,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const clickDelete = (e, articleId) => {
-    alert('click delete ' + articleId);
-    e.stopPropagation();
-}
-
 const clickOpenUrl = (url) => {
     if (url) {
         window.open(url, "_blank");
@@ -66,7 +61,7 @@ const Article = (props) => {
             <span className={styleClass.articleTitle}>{props.article.title}</span> - 
             <span className={styleClass.articleAuthor}> {props.article.author}</span>
             <span className={styleClass.delete}> {formatDate(props.article.created)}
-                <FaTrashAlt className={styleClass.iconDelete} onClick={(e) => clickDelete(e, props.article.articleId)} /> 
+                <FaTrashAlt className={styleClass.iconDelete} onClick={(e) => props.clickDelete(e, props.article.id)} /> 
             </span>   
         </Grid>
     );
