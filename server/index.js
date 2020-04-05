@@ -15,14 +15,14 @@ const corsOptions = {
     exposedHeaders:  ['auth-token']
 };
   
-app.use(cors(corsOptions));
+app.use(cors());
 
 require('./api/models/Article');
 
 const routes = require('./api/routes/routes');
 
 const PORT = process.env.NODE_PORT || 8080;
-const HOST =  process.env.NODE_HOST || '0.0.0.0';
+const HOST = '0.0.0.0';
 
 mongoose.Promise = global.Promise;
 
