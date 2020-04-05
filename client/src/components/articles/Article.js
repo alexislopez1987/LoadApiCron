@@ -52,16 +52,49 @@ const formatDate = (createdAt) => {
     }
 }
 
+const onEnterHandler = (e) => {
+    e.preventDefault();
+
+    let parentId = null;
+    if (e.target.nodeName === 'DIV') {
+        parentId = e.target.id;
+    } else {
+        parentId = e.target.parentNode.id;
+    }
+
+    let parentDiv = document.getElementById(parentId);
+    let iconDelete = parentDiv.lastChild.children[0];
+    iconDelete.classList.remove("invisible");
+}
+
+const onLeaveHandler = (e) => {
+    e.preventDefault();
+
+    let parentId = null;
+    if (e.target.nodeName === 'DIV') {
+        parentId = e.target.id;
+    } else {
+        parentId = e.target.parentNode.id;
+    }
+
+    let parentDiv = document.getElementById(parentId);
+
+    if (parentDiv) {
+        let iconDelete = parentDiv.lastChild.children[0];
+        iconDelete.classList.add("invisible");
+    }
+}
+
 const Article = (props) => {
 
     const styleClass = useStyles();
-
+    
     return (
-        <Grid item md={10} className={styleClass.root} onClick={() => clickOpenUrl(props.article.url)}>
+        <Grid id={props.article.id} item md={10} className={styleClass.root} onClick={() => clickOpenUrl(props.article.url)} onMouseEnter={onEnterHandler} onMouseLeave={onLeaveHandler}>
             <span className={styleClass.articleTitle}>{props.article.title}</span> - 
             <span className={styleClass.articleAuthor}> {props.article.author}</span>
             <span className={styleClass.delete}> {formatDate(props.article.created)}
-                <FaTrashAlt className={styleClass.iconDelete} onClick={(e) => props.clickDelete(e, props.article.id)} /> 
+                <FaTrashAlt className={`${styleClass.iconDelete} invisible`} onClick={(e) => props.clickDelete(e, props.article.id)} /> 
             </span>   
         </Grid>
     );
