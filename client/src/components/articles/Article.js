@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from '@material-ui/core/styles';
 import { FaTrashAlt } from 'react-icons/fa';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({ 
     root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         color: '#333'
     },
     iconDelete: {
-        paddingLeft: '10px',
+        paddingLeft: '30px',
         paddingRight: '10px'
     }
 }));
@@ -43,6 +44,19 @@ const clickOpenUrl = (url) => {
     }
 }
 
+const formatDate = (createdAt) => {
+    let momentDate = moment(createdAt);
+
+    if (moment(momentDate).isSame(moment(), 'day')) {
+        return momentDate.format('HH:mm');
+    } else if (moment(momentDate).isSame(moment().add(-1, 'days'), 'day')) {
+        return 'Yesterday';
+    }
+    else {
+        return momentDate.format('MMM DD');
+    }
+}
+
 const Article = (props) => {
 
     const styleClass = useStyles();
@@ -51,7 +65,7 @@ const Article = (props) => {
         <Grid item md={10} className={styleClass.root} onClick={() => clickOpenUrl(props.article.url)}>
             <span className={styleClass.articleTitle}>{props.article.title}</span> - 
             <span className={styleClass.articleAuthor}> {props.article.author}</span>
-            <span className={styleClass.delete}> {props.article.created} 
+            <span className={styleClass.delete}> {formatDate(props.article.created)}
                 <FaTrashAlt className={styleClass.iconDelete} onClick={(e) => clickDelete(e, props.article.articleId)} /> 
             </span>   
         </Grid>
