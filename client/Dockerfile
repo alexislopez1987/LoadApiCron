@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:10 as builder
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -16,4 +16,10 @@ COPY . .
 # expose ports
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+RUN npm run build
+
+#multi-stage build
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
