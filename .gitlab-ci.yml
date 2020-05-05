@@ -9,12 +9,7 @@ docker-build:
   variables:
     SERVER_TAG: server
     CLIENT_TAG: client
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   before_script:
-    - echo $CI_REGISTRY_USER
-    - echo $CI_REGISTRY_PASSWORD
-    - echo $CI_REGISTRY_IMAGE
-    - echo $CI_REGISTRY
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker build -t "$CI_REGISTRY_IMAGE"/$SERVER_TAG ./server
