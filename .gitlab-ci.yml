@@ -10,7 +10,7 @@ docker-build:
     SERVER_TAG: loadapicron-server
     CLIENT_TAG: loadapicron-client
   before_script:
-    - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin $CI_REGISTRY
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS $CI_REGISTRY
   script:
     - docker build --pull -t $SERVER_TAG ./server
     - docker push $SERVER_TAG
