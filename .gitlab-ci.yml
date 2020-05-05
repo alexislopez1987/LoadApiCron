@@ -10,11 +10,12 @@ docker-build:
     SERVER_TAG: loadapicron-server
     CLIENT_TAG: loadapicron-client
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo $DOCKER_UPLOAD_TOKEN
+    - docker login -u alexis.lopez87 -p $DOCKER_UPLOAD_TOKEN $CI_REGISTRY
   script:
-    - docker build -t $SERVER_TAG ./server
+    - docker build --pull -t $SERVER_TAG ./server
     - docker push $SERVER_TAG
-    - docker build -t $CLIENT_TAG ./client
+    - docker build --pull -t $CLIENT_TAG ./client
     - docker push $CLIENT_TAG
   #only:
   #  - master
