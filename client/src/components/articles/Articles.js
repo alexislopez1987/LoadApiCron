@@ -17,9 +17,15 @@ const Articles = (props) => {
 
     const getArticles = async () => {
         try {
-            let articles = await Api.get(`articles`);
-            setArticles(articles.data);
-            setIsLoading(false);
+
+            if (props.articles) {
+                setArticles(props.articles);
+                setIsLoading(false);
+            } else {
+                let articles = await Api.get(`articles`);
+                setArticles(articles.data);
+                setIsLoading(false);
+            }
         } catch (error) {
             console.error("error when getting articles");
             console.error(error);
@@ -34,8 +40,14 @@ const Articles = (props) => {
 
     const deleteArticle = async (id) => {
         try {
-            await Api.delete(`article/${id}`);
-            await getArticles();
+            if (props.articles) {
+                let updatedArticles = props.articles.filter(article => article.articleId !== id);
+                setArticles(updatedArticles);
+                setIsLoading(false);
+            } else {
+                await Api.delete(`article/${id}`);
+                await getArticles();
+            }        
         } catch (error) {
             console.error('Error trying to delete');
             console.error(error);
@@ -45,7 +57,7 @@ const Articles = (props) => {
     if (!isLoading && articles.length === 0) {
         return (
             <Grid container justify="center" spacing={3}>
-                <Grid item md={10} >
+                <Grid item md={10} id="no-articles" >
                     Articles not found! :(
                 </Grid>
             </Grid>
@@ -56,7 +68,7 @@ const Articles = (props) => {
        <Fragment>
             <Grid id="articlesId" container justify="center" spacing={3}>
                 {articles.map(article => (
-                    <Article key={article.articleId} article={article} clickDelete={clickArticleDeleteHandler} />
+                    <Article className="article" key={article.articleId} article={article} clickDelete={clickArticleDeleteHandler} />
                 ))}
             </Grid>
        </Fragment>
