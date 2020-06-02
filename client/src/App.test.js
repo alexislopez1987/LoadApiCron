@@ -62,7 +62,7 @@ describe("Api Cron Testing", () => {
   test("simulate delete article", () => {
     let articlesToTest = listArticles();
     let articlesWrapper = mount(<Articles articles={articlesToTest} />);
-    console.log(articlesWrapper.debug());
+    //console.log(articlesWrapper.debug());
     expect(articlesWrapper.find(".article")).toHaveLength(3);
     articlesWrapper.find("#btnDelete").first().simulate("click");
     expect(articlesWrapper.find(".article")).toHaveLength(2);
