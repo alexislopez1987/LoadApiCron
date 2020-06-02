@@ -2,37 +2,30 @@ import React from 'react';
 import { mount, shallow } from "enzyme";
 import App from './App';
 import Articles from './components/articles/Articles';
-import Article from './components/articles/Article';
 import Header from './components/layout/Header';
 
 const listArticles = () => {
   let articlesToTest = [{
     articleId: 1,
-    article: {
-      id: 1,
-      title: "test title 1",
-      author: "alexis",
-      url: "",
-      created: "1996-10-15T00:05:32.000Z"
-    }
+    id: 1,
+    title: "test title 1",
+    author: "alexis",
+    url: "",
+    created: "1996-10-15T00:05:32.000Z"
   }, {
     articleId: 2,
-    article: {
-      id: 2,
-      title: "test title 2",
-      author: "juan",
-      url: "",
-      created: "2020-06-01T00:05:32.000Z"
-    }
+    id: 2,
+    title: "test title 2",
+    author: "juan",
+    url: "",
+    created: "2020-06-01T00:05:32.000Z"
   } ,{
     articleId: 3,
-    article: {
-      id: 3,
-      title: "test title 3",
-      author: "maria",
-      url: "",
-      created: "2020-05-31T00:05:32.000Z"
-    }
+    id: 3,
+    title: "test title 3",
+    author: "maria",
+    url: "",
+    created: "2020-05-31T00:05:32.000Z"
   }];
 
   return articlesToTest;
@@ -66,15 +59,13 @@ describe("Api Cron Testing", () => {
     expect(articlesWrapper.find(".article")).toHaveLength(3);
   });
 
- /*
   test("simulate delete article", () => {
     let articlesToTest = listArticles();
     let articlesWrapper = mount(<Articles articles={articlesToTest} />);
-    expect(articlesWrapper.find(".article")).toHaveLength(3);
     console.log(articlesWrapper.debug());
-    //await articlesWrapper.deleteArticle(1);
-    expect(articlesWrapper.find(".article").first().clickDelete()).toHaveLength(2);
-  });
-  */
+    expect(articlesWrapper.find(".article")).toHaveLength(3);
+    articlesWrapper.find("#btnDelete").first().simulate("click");
+    expect(articlesWrapper.find(".article")).toHaveLength(2);
+  }); 
 
 });

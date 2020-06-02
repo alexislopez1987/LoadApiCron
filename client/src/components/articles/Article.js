@@ -94,7 +94,7 @@ const Article = (props) => {
             <span className={styleClass.articleTitle}>{props.article.title}</span> - 
             <span className={styleClass.articleAuthor}> {props.article.author}</span>
             <span className={styleClass.delete}> {formatDate(props.article.created)}
-                <FaTrashAlt className={`${styleClass.iconDelete} invisible`} onClick={(e) => props.clickDelete(e, props.article.id)} /> 
+                <FaTrashAlt id="btnDelete" className={`${styleClass.iconDelete} invisible`} onClick={(e) => props.clickDelete(e, props.article.id)} /> 
             </span>   
         </Grid>
     );
