@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import Api from '../../utils/Api';
+//import Api from '../../utils/Api';
 import Article from './Article';
+import ConnectApi from '../../services/ConnectApi';
 
 const Articles = (props) => {
+
+    const connectApi = new ConnectApi();
 
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +25,7 @@ const Articles = (props) => {
                 setArticles(props.articles);
                 setIsLoading(false);
             } else {
-                let articles = await Api.get(`articles`);
+                let articles = await connectApi.getArticles();
                 setArticles(articles.data);
                 setIsLoading(false);
             }
@@ -45,7 +48,7 @@ const Articles = (props) => {
                 setArticles(updatedArticles);
                 setIsLoading(false);
             } else {
-                await Api.delete(`article/${id}`);
+                await connectApi.deleteArticle(id);
                 await getArticles();
             }        
         } catch (error) {
