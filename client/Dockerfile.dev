@@ -1,0 +1,8 @@
+FROM node:10
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . . 
+#RUN npm test --watchAll=false --coverage
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+RUN CI=true npm test
